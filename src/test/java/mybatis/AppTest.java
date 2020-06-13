@@ -2,6 +2,7 @@ package mybatis;
 
 import static org.junit.Assert.assertTrue;
 
+import com.github.pagehelper.PageHelper;
 import mybatis.dao.StudentDao;
 import mybatis.dao.StudentDaoImpl;
 import mybatis.domain.Student;
@@ -14,6 +15,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -147,4 +149,65 @@ public class AppTest
         System.out.println("使用 Dao 修改数据:"+nums);
     }
 
+    @Test
+    public void testSelectById(){
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        //一个简单参数
+        Student student = studentDao.selectById(1000);
+        System.out.println("查询 id 是 1000 的学生："+student);
+    }
+
+    @Test
+    public void testSelectMultiParam(){
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        //多参数
+        List<Student> studentList = studentDao.selectMultiParam("xsf",21);
+        studentList.forEach( stu -> System.out.println(stu));
+    }
+
+    @Test
+    public void testNewSelect() throws IOException {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        Student student = new Student();
+        student.setName("xsf");
+        student.setAge(20);
+        List<Student> studentList = studentDao.selectStudentIf(student);
+        studentList.forEach( stu -> System.out.println(stu));
+    }
+
+    @Test
+    public void testSelectWhere() throws IOException {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        Student student = new Student();
+        student.setName("xsf");
+        student.setAge(20);
+        List<Student> studentList = studentDao.selectStudentWhere(student);
+        studentList.forEach( stu -> System.out.println(stu));
+    }
+
+    @Test
+    public void testSelectForList() {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        List<Integer> list = new ArrayList<>();
+        list.add(1002);
+        list.add(1005);
+        list.add(1001);
+        List<Student> studentList = studentDao.selectStudentForList(list);
+        studentList.forEach( stu -> System.out.println(stu));
+    }
+
+    @Test
+    public void testPage(){
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        //获取第一页，3条内容
+        PageHelper.startPage(1,3);
+        List<Student> students=studentDao.selectStudents();
+        students.forEach(student -> System.out.println(student));
+    }
 }

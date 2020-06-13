@@ -21,4 +21,48 @@
         delete from student where id=#{studentId}
     </delete>
 
+    <select id="selectById" resultType="mybatis.domain.Student">
+        select id,name,email,age from student where id = #{stduentId}
+    </select>
+
+    <select id="selectMultiParam" resultType="mybatis.domain.Student">
+        select id,name,email,age from student where name = #{personName} or age = #{personAge}
+    </select>
+
+    <!--动态sql：if-->
+    <select id="selectStudentIf" resultType="mybatis.domain.Student">
+        select id , name , email , age from student
+        where 1 = 1
+        <if test="name != null || name != '' ">
+            and name = #{name}
+        </if>
+        <if test="age > 0 ">
+            and age &gt; #{age}
+        </if>
+    </select>
+
+    <!--动态sql：where-->
+    <select id="selectStudentWhere" resultType="mybatis.domain.Student">
+          select id,name,email,age from student
+          <where>
+              <if test="name != null || name != '' ">
+                  and name = #{name}
+              </if>
+              <if test="age > 0 ">
+                  and age &gt; #{age}
+              </if>
+          </where>
+    </select>
+
+    <!--动态sql：foreach-->
+    <select id="selectStudentForList" resultType="mybatis.domain.Student">
+        select id,name,email,age from student
+        <if test="list !=null and list.size > 0 ">
+            where id in
+            <foreach collection="list" open="(" close=")"
+                     item="stuid" separator=",">
+                #{stuid}
+            </foreach>
+        </if>
+    </select>
 </mapper>

@@ -44,4 +44,29 @@ public class StudentDaoImpl implements StudentDao {
         return nums;
 
     }
+
+    @Override
+    public Student selectById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Student> selectStudentIf(Student student) {
+        return null;
+    }
+
+    @Override
+    public List<Student> selectMultiParam(String name, int age) {
+        return null;
+    }
+
+    @Override
+    public List<Student> selectStudentWhere(Student student) {
+        return null;
+    }
+
+    @Override
+    public List<Student> selectStudentForList(List<Integer> idList) {
+        return null;
+    }
 }

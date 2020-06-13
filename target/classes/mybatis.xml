@@ -4,11 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <properties resource="jdbc.properties"/>
     <!--日志配置-->
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
 
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor" />
+    </plugins>
     <!--配置 mybatis 环境-->
     <environments default="mysql">
         <!--id:数据源的名称-->
@@ -17,10 +21,10 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <!--连接数据库的四个要素-->
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/ssm"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
