@@ -2,7 +2,10 @@ package mybatis;
 
 import static org.junit.Assert.assertTrue;
 
+import mybatis.dao.StudentDao;
+import mybatis.dao.StudentDaoImpl;
 import mybatis.domain.Student;
+import mybatis.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -83,5 +86,22 @@ public class AppTest
         sqlSession.commit();
         System.out.println("删除记录的行数："+rows);
         sqlSession.close();
+    }
+
+    @Test
+    public void testUtils() throws IOException {
+        SqlSession session= MyBatisUtils.getSqlSession();
+        List<Student> studentList=session.selectList("mybatis.dao.StudentDao.selectStudents");
+        studentList.forEach(student -> System.out.println(student));
+        session.close();
+    }
+
+    @Test
+    public void testSelectStudents() throws IOException {
+        StudentDao studentDao=new StudentDaoImpl();
+        List<Student> studentList  = studentDao.selectStudents();
+        for(Student stu:studentList){
+            System.out.println(stu);
+        }
     }
 }
