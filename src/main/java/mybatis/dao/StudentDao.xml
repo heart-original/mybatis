@@ -9,13 +9,13 @@
         select id,name,email,age from student
     </select>
 
-    <select id="insertStudent">
-        insert into student(id,name,email,age) values (#{id},#{name},#{email},#{age});
-    </select>
+    <insert id="insertStudent">
+        insert into student values(#{id},#{name},#{email},#{age})
+    </insert>
 
-    <select id="updateStudent">
+    <update id="updateStudent">
         update student set age = #{age} where id=#{id}
-    </select>
+    </update>
 
     <delete id="deleteStudent">
         delete from student where id=#{studentId}

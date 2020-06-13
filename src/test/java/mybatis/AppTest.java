@@ -49,10 +49,10 @@ public class AppTest
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
         SqlSession sqlSession=factory.openSession();
         Student student=new Student();
-        student.setAge(21);
-        student.setEmail("456.com");
         student.setId(1004);
         student.setName("lily");
+        student.setEmail("456.com");
+        student.setAge(21);
         int rows=sqlSession.insert("mybatis.dao.StudentDao.insertStudent",student);
         sqlSession.commit();
         System.out.println("增加记录的行数："+rows);
@@ -104,4 +104,47 @@ public class AppTest
             System.out.println(stu);
         }
     }
+
+    @Test
+    public void testSelect() throws IOException {
+        StudentDao studentDao=MyBatisUtils.getSqlSession().getMapper(StudentDao.class);
+        final List<Student> studentList = studentDao.selectStudents();
+        studentList.forEach( stu -> System.out.println(stu));
+    }
+
+    @Test
+    public void testNewInsert() throws IOException {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        Student student = new Student();
+        student.setId(1003);
+        student.setName("lily");
+        student.setEmail("456.com");
+        student.setAge(22);
+        int nums =studentDao.insertStudent(student);
+        session.commit();
+        System.out.println("使用 Dao 添加数据:"+nums);
+    }
+
+    @Test
+    public void testNewUpdate() throws IOException {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        Student student = new Student();
+        student.setId(1003);
+        student.setAge(21);
+        int nums = studentDao.updateStudent(student);
+        session.commit();
+        System.out.println("使用 Dao 修改数据:"+nums);
+    }
+
+    @Test
+    public void testNewDelete() throws IOException {
+        SqlSession session=MyBatisUtils.getSqlSession();
+        StudentDao studentDao=session.getMapper(StudentDao.class);
+        int nums = studentDao.deleteStudent(1002);
+        session.commit();
+        System.out.println("使用 Dao 修改数据:"+nums);
+    }
+
 }
