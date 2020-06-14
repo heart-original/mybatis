@@ -264,7 +264,7 @@
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592056145667" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -390,7 +390,7 @@
       <workItem from="1592017731158" duration="1119000" />
       <workItem from="1592021222607" duration="15272000" />
       <workItem from="1592052779298" duration="3263000" />
-      <workItem from="1592117773043" duration="339000" />
+      <workItem from="1592117773043" duration="830000" />
     </task>
     <servers />
   </component>
@@ -427,7 +427,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22170000" />
+    <option name="totallyTimeSpent" value="22661000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
